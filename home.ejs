@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants</title>    
+    <style>
+        body { font-family: Arial; padding-left:20px; }                 
+        .restaurant {
+            border:1px solid #ccc;
+            padding:10px;
+            width:500px;            
+        }
+        form#leave-review {
+            display:flex;
+            flex-direction:column;
+            gap:5px;
+            width:200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Restaurants</h1>
+    <% for (let i = 0; i < restaurants.length; i++) { %>
+        <div class="restaurant">
+            <h3><%= restaurants[i].name %></h3>
+            <ul>
+                <% for (let j = 0; j < restaurants[i].reviews.length; j++) { %>
+                    <li>Comment from <a href="/find/<%= restaurants[i].reviews[j].user %>"><%= restaurants[i].reviews[j].user %></a>: <%= restaurants[i].reviews[j].comment %></li>
+                <% } %>
+            </ul>
+        </div>
+    <% } %>
+
+    <h2>Leave a Review</h2>
+    <form id="leave-review" method="POST" action="/add">
+        <label for="tbRestaurantId">Restaurant id:</label>
+        <input type="text" id="tbRestaurantId" name="tbRestaurantId" required/>
+        <label for="tbName">Your name:</label>
+        <input type="text" id="tbName" name="tbName" required/>
+        <label for="tbCommentText">What are your comments?</label>
+        <input type="text" id="tbCommentText" name="tbCommentText" required/>
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>
